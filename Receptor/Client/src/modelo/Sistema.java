@@ -9,6 +9,10 @@ import excepciones.MensajeMalFormadoException;
 
 import java.io.IOException;
 
+import java.net.InetAddress;
+
+import java.net.UnknownHostException;
+
 import java.util.Observable;
 
 import java.util.Observer;
@@ -25,6 +29,7 @@ public class Sistema extends Observable implements Observer {
     // instancia
     private InternetManager internetManager;
     private GestorAlarma alarma;
+    private Usuario usuario;
 
     private Sistema() {
         alarma = new GestorAlarma();
@@ -37,6 +42,10 @@ public class Sistema extends Observable implements Observer {
             instancia = new Sistema();
         }
         return instancia;
+    }
+    
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public void apagarAlarma() {
@@ -73,6 +82,10 @@ public class Sistema extends Observable implements Observer {
             // System.out.println("EXCEPCION LA CANTIDAD DE ATRIBUTOS NO COINCIDE.");
             // sin funcionalidad
         }
+    }
+    
+    public void notificarCambioDeEstado(boolean valor) {
+        internetManager.notificarCambioDeEstado(usuario.getNombre(), usuario.getNumeroDeIP(), valor, 100, usuario.getNumeroDeIP());
     }
     
     // los tres metodos que siguen son para manejo de recepcion de mensajes en el IMR
