@@ -2,7 +2,10 @@ package main;
 
 import controladores.ControladorVentana;
 
+import controladores.ControladorVentanaIngresaNombre;
+
 import ventanas.Ventana;
+import ventanas.VentanaIngresaNombre;
 
 public class Main {
     public Main() {
@@ -10,8 +13,8 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Ventana ventana = new Ventana("Elegir modo usuario");
-        ControladorVentana controlador = new ControladorVentana(ventana);
+        VentanaIngresaNombre ventana = new VentanaIngresaNombre("");
+        ControladorVentanaIngresaNombre controlador = new ControladorVentanaIngresaNombre(ventana);
         ventana.setControlador(controlador);
         ventana.abrir();
     }

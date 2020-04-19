@@ -19,6 +19,10 @@ import java.awt.event.MouseAdapter;
 
 import java.awt.event.MouseEvent;
 
+import java.awt.event.WindowAdapter;
+
+import java.awt.event.WindowEvent;
+
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
@@ -96,6 +100,14 @@ public class Ventana extends JFrame implements InterfazVistaReceptor {
         botonApagarAlarma.setPreferredSize(new Dimension(250,25));
         panelInferior.add(botonApagarAlarma);
         contenedorPrincipal.add(panelInferior, BorderLayout.SOUTH);
+        
+        // Agrego accion de desconectar al usuario del directorio al cerrar la aplicacion
+        addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    controlador.notificarCambioDeEstado(false);
+                }
+         });
     }
     
     public void setControlador(ActionListener controlador) {

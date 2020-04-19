@@ -35,6 +35,10 @@ public class ControladorVentana implements ActionListener, Observer {
     public ArrayList<Mensaje> getMensajesRecibidos() {
         return mensajesRecibidos;
     }
+    
+    public void notificarCambioDeEstado(boolean valor) {
+        sistema.notificarCambioDeEstado(valor);
+    }
 
     @Override
     public void update(Observable observable, Object object) {

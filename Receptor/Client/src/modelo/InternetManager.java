@@ -1,6 +1,7 @@
 package modelo;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
@@ -54,6 +55,19 @@ public class InternetManager {
     
     public void mensajeRecibido(String msg) {
         Sistema.getInstancia().mensajeRecibido(msg);
+    }
+    
+    public void notificarCambioDeEstado(String nombre, String nroIPDirectorio, boolean valor, int nroPuerto, String nroIP) {
+        try {
+            Socket socket = new Socket(nroIPDirectorio.trim(), nroPuerto);
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out.println("AvisoConexion\n"+nombre+"\n"+nroIP+"\n" + valor);
+            out.close();
+            socket.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void errorConexion(String error) {
