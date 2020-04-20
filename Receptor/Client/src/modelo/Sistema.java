@@ -59,19 +59,17 @@ public class Sistema extends Observable implements Observer {
      * @throws FileNotFoundException
      * Si ocurre un error con la lectura del archivo de configuracion.
      */
-    //llamarlo como leerConfig(Sistema.ARCHIVO_CONFIG)
     public void leerConfig() throws NoLecturaConfiguracionException {
         try {
             FileInputStream arch;
             arch = new FileInputStream(ARCHIVO_CONFIG);
             Scanner sc = new Scanner(arch);    
             
-            this.NRO_IP_DIRECTORIO = sc.nextLine(); 
-            System.out.println("IP-Directorio leida: " + this.NRO_IP_DIRECTORIO);
+            this.NRO_IP_DIRECTORIO = sc.nextLine();
             sc.close();
         } catch (FileNotFoundException e) {
             throw new NoLecturaConfiguracionException(e);
-        }  
+        }
     }
     
     public void setUsuario(Usuario usuario) {
