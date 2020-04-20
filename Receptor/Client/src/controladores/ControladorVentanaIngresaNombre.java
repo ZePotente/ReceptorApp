@@ -1,5 +1,7 @@
 package controladores;
 
+import excepciones.NoConexionException;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -43,6 +45,8 @@ public class ControladorVentanaIngresaNombre implements ActionListener {
                 vista.cerrar();
             } catch (UnknownHostException e) {
                 System.out.println("Error al obtener el numero de IP");
+            } catch (NoConexionException e) {
+                System.out.println("Error al intentar conectar al directorio.");
             }
         }
     }
