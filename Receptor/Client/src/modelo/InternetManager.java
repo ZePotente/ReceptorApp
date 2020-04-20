@@ -56,17 +56,15 @@ public class InternetManager {
         Sistema.getInstancia().mensajeRecibido(msg);
     }
     
-    public void notificarCambioDeEstado(String nombre, String nroIPDirectorio, boolean valor, int nroPuerto, String nroIP) {
-        try {
-            Socket socket = new Socket(nroIPDirectorio.trim(), nroPuerto);
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out.println("AvisoConexion\n"+nombre+"\n"+nroIP+"\n" + valor);
-            out.close();
-            socket.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+    public void notificarCambioDeEstado(boolean valor, String nombre, String nroIP,
+                                        String nroIPDirectorio, int nroPuertoDirectorio) throws Exception {
+        
+        Socket socket = new Socket(nroIPDirectorio.trim(), nroPuertoDirectorio);
+        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        out.println("AvisoConexion\n"+nombre+"\n"+nroIP+"\n" + valor);
+        // out.close(); //se cierra con el socket.close();
+        socket.close();
     }
 
     public void errorConexion(String error) {

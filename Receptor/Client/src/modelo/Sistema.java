@@ -7,15 +7,19 @@ import excepciones.MalTipoDeMensajeException;
 
 import excepciones.MensajeMalFormadoException;
 
+import excepciones.NoConexionException;
+
+import excepciones.NoLecturaConfiguracionException;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import java.net.InetAddress;
-
-import java.net.UnknownHostException;
 
 import java.util.Observable;
 
 import java.util.Observer;
+
+import java.util.Scanner;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -25,8 +29,10 @@ import modelo.mensaje.Mensaje;
 public class Sistema extends Observable implements Observer {
     // clase
     private static Sistema instancia;
-    private static final int NRO_PUERTO = 123;
+    private static final int NRO_PUERTO = 123, NRO_PUERTO_DIRECTORIO = 100;
+    private static final String ARCHIVO_CONFIG = "configuracion.txt";
     // instancia
+    private String NRO_IP_DIRECTORIO = "";
     private InternetManager internetManager;
     private GestorAlarma alarma;
     private Usuario usuario;
@@ -35,6 +41,7 @@ public class Sistema extends Observable implements Observer {
         alarma = new GestorAlarma();
         internetManager = new InternetManager();
         internetManager.escuchar(NRO_PUERTO);
+        
     }
     
     public static Sistema getInstancia() {
@@ -42,6 +49,29 @@ public class Sistema extends Observable implements Observer {
             instancia = new Sistema();
         }
         return instancia;
+    }
+    
+    /**
+     * @param nombreArch
+     * Lee el archivo de configuracion.txt
+     * y asigna la IP leida a la variable local que la contiene.
+     * 
+     * @throws FileNotFoundException
+     * Si ocurre un error con la lectura del archivo de configuracion.
+     */
+    //llamarlo como leerConfig(Sistema.ARCHIVO_CONFIG)
+    private void leerConfig(String nombreArch) throws NoLecturaConfiguracionException {
+        try {
+            FileInputStream arch;
+            arch = new FileInputStream(nombreArch);
+            Scanner sc = new Scanner(arch);    
+            
+            this.NRO_IP_DIRECTORIO = sc.nextLine(); 
+            System.out.println("IP-Directorio leida: " + this.NRO_IP_DIRECTORIO);
+            sc.close();
+        } catch (FileNotFoundException e) {
+            throw new NoLecturaConfiguracionException(e);
+        }  
     }
     
     public void setUsuario(Usuario usuario) {
@@ -55,7 +85,6 @@ public class Sistema extends Observable implements Observer {
             // sin funcionalidad
         }
     }
-
     // TODO agregar como se muestran las excepciones
     public void encenderAlarma() {
         try {
@@ -70,8 +99,10 @@ public class Sistema extends Observable implements Observer {
         Mensaje mensaje;
         try {
             mensaje = Mensaje.armar(msg);
+            // update()?
             setChanged();
             notifyObservers(mensaje);
+            //
             mensaje.ejecutar(); // hace cosas diferentes dependiendo del tipo de mensaje
         } catch (MalTipoDeMensajeException e) {
             // Mal tipo de mensaje
@@ -84,8 +115,13 @@ public class Sistema extends Observable implements Observer {
         }
     }
     
-    public void notificarCambioDeEstado(boolean valor) {
-        internetManager.notificarCambioDeEstado(usuario.getNombre(), usuario.getNumeroDeIP(), valor, 100, usuario.getNumeroDeIP());
+    public void notificarCambioDeEstado(boolean valor) throws NoConexionException {
+        try {
+            internetManager.notificarCambioDeEstado(valor, usuario.getNombre(), usuario.getNumeroDeIP(),
+                                                    NRO_IP_DIRECTORIO, NRO_PUERTO_DIRECTORIO);
+        } catch (Exception e) {
+            throw new NoConexionException(e);
+        }
     }
     
     // los tres metodos que siguen son para manejo de recepcion de mensajes en el IMR
