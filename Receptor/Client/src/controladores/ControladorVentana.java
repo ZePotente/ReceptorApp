@@ -1,5 +1,7 @@
 package controladores;
 
+import excepciones.NoConexionException;
+
 import modelo.mensaje.Mensaje;
 import modelo.Sistema;
 
@@ -37,7 +39,11 @@ public class ControladorVentana implements ActionListener, Observer {
     }
     
     public void notificarCambioDeEstado(boolean valor) {
-        sistema.notificarCambioDeEstado(valor);
+        try {
+            sistema.notificarCambioDeEstado(valor);
+        } catch (NoConexionException e) {
+            System.out.println("Error al notificar cambio de estado");
+        }
     }
 
     @Override

@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 
 import javax.swing.JLabel;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import vista.InterfazVistaIngresaNombre;
@@ -41,6 +42,11 @@ public class VentanaIngresaNombre extends JFrame implements InterfazVistaIngresa
     @Override
     public void cerrar() {
         setVisible(false);
+    }
+    
+    @Override
+    public void mostrarMensajeError(String mensaje) {
+        JOptionPane.showMessageDialog(null, mensaje);
     }
 
     @Override

@@ -60,10 +60,10 @@ public class Sistema extends Observable implements Observer {
      * Si ocurre un error con la lectura del archivo de configuracion.
      */
     //llamarlo como leerConfig(Sistema.ARCHIVO_CONFIG)
-    private void leerConfig(String nombreArch) throws NoLecturaConfiguracionException {
+    public void leerConfig() throws NoLecturaConfiguracionException {
         try {
             FileInputStream arch;
-            arch = new FileInputStream(nombreArch);
+            arch = new FileInputStream(ARCHIVO_CONFIG);
             Scanner sc = new Scanner(arch);    
             
             this.NRO_IP_DIRECTORIO = sc.nextLine(); 

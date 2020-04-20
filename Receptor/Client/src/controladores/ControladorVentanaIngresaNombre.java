@@ -2,6 +2,8 @@ package controladores;
 
 import excepciones.NoConexionException;
 
+import excepciones.NoLecturaConfiguracionException;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -38,15 +40,23 @@ public class ControladorVentanaIngresaNombre implements ActionListener {
             ControladorVentana controlador = new ControladorVentana(ventana);
             ventana.setControlador(controlador);
             try {
-                String nroIP = InetAddress.getLocalHost().getHostAddress();
-                sistema.setUsuario(new Usuario(vista.getNombre(), nroIP));
-                sistema.notificarCambioDeEstado(true);
-                ventana.abrir();
-                vista.cerrar();
+                String nombre = vista.getNombre();
+                if (nombre != null && !nombre.isEmpty()) {
+                    try {
+                        sistema.leerConfig();
+                    } catch (NoLecturaConfiguracionException e) {
+                        vista.mostrarMensajeError("Error al leer la ip desde el archivo de configuracion");
+                    }
+                    String nroIP = InetAddress.getLocalHost().getHostAddress();
+                    sistema.setUsuario(new Usuario(vista.getNombre(), nroIP));
+                    sistema.notificarCambioDeEstado(true);
+                    ventana.abrir();
+                    vista.cerrar();
+                }
             } catch (UnknownHostException e) {
                 System.out.println("Error al obtener el numero de IP");
             } catch (NoConexionException e) {
-                System.out.println("Error al intentar conectar al directorio.");
+                vista.mostrarMensajeError("Error al intentar conectar al directorio.");
             }
         }
     }
