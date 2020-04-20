@@ -44,14 +44,15 @@ public class ControladorVentanaIngresaNombre implements ActionListener {
                 if (nombre != null && !nombre.isEmpty()) {
                     try {
                         sistema.leerConfig();
-                    } catch (NoLecturaConfiguracionException e) {
-                        vista.mostrarMensajeError("Error al leer la ip desde el archivo de configuracion");
-                    }
+                    
                     String nroIP = InetAddress.getLocalHost().getHostAddress();
                     sistema.setUsuario(new Usuario(vista.getNombre(), nroIP));
                     sistema.notificarCambioDeEstado(true);
                     ventana.abrir();
                     vista.cerrar();
+                    } catch (NoLecturaConfiguracionException e) {
+                        vista.mostrarMensajeError("Error al leer la ip desde el archivo de configuracion");
+                    }
                 }
             } catch (UnknownHostException e) {
                 System.out.println("Error al obtener el numero de IP");
