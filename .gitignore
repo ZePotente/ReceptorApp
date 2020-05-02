@@ -1,2 +1,4 @@
 #ignorar la carpeta .data para evitar quilombos
 Receptor/.data
+Receptor/Client/model
+Receptor/Client/deploy
