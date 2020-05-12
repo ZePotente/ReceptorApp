@@ -56,9 +56,11 @@ public class ControladorVentanaIngresaNombre implements ActionListener {
                 }
             } catch (UnknownHostException e) {
                 System.out.println("Error al obtener el numero de IP");
-            } catch (NoConexionException e) {
-                vista.mostrarMensajeError("Error al intentar conectar al directorio.");
             }
         }
+    }
+    
+    public void mostrarMensajeError() {
+        vista.mostrarMensajeError("Error al intentar conectar al directorio.");
     }
 }
