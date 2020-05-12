@@ -125,6 +125,8 @@ public class Sistema extends Observable implements Observer {
         new Thread() {
             public void run() {
                 try {
+                    System.out.println("Se va a notificar el cambio con los siguientes valores:");
+                    System.out.println(valor + " " + usuario.getNombre() + " IP: " + usuario.getNumeroDeIP());
                     internetManager.notificarCambioDeEstado(valor, usuario.getNombre(), usuario.getNumeroDeIP(),
                                                             NRO_IP_DIRECTORIO, NRO_PUERTO_DIRECTORIO);
                 } catch (Exception e) {

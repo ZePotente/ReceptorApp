@@ -62,8 +62,11 @@ public class InternetManager {
         Socket socket = new Socket(nroIPDirectorio.trim(), nroPuertoDirectorio);
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        out.println("AvisoConexion\n"+nombre+"\n"+nroIP);
-        
+        String notificacion = "AvisoConexion\n"+nombre+"\n"+nroIP;
+        System.out.println("Se esta por enviar la notificacion:");
+        System.out.println(notificacion);
+        out.println(notificacion);
+        System.out.println("Se envio la notificacion.");
         controlarConexion(in);
         // out.close(); //se cierra con el socket.close();
         socket.close();
@@ -71,9 +74,9 @@ public class InternetManager {
     
     private void controlarConexion(BufferedReader in) throws IOException {
         while(true) {
+            System.out.println("Esperando ping.");
             String aux = in.readLine();
             System.out.println("Se recibio un ping por parte del directorio.");
-            System.out.println("Y el ping dice:" + aux + ".");
         }
     }
 
