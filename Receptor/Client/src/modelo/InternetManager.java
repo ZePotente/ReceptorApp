@@ -63,8 +63,16 @@ public class InternetManager {
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out.println("AvisoConexion\n"+nombre+"\n"+nroIP+"\n" + valor);
+        
+        controlarConexion(in);
         // out.close(); //se cierra con el socket.close();
         socket.close();
+    }
+    
+    private void controlarConexion(BufferedReader in) throws IOException {
+        while(true) {
+            in.readLine();
+        }
     }
 
     public void errorConexion(String error) {
