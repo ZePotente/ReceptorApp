@@ -101,13 +101,15 @@ public class Ventana extends JFrame implements InterfazVistaReceptor {
         panelInferior.add(botonApagarAlarma);
         contenedorPrincipal.add(panelInferior, BorderLayout.SOUTH);
         
+        /*
         // Agrego accion de desconectar al usuario del directorio al cerrar la aplicacion
         addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosing(WindowEvent e) {
                     controlador.notificarCambioDeEstado(false);
                 }
-         });
+        });
+        */
     }
     
     public void setControlador(ActionListener controlador) {

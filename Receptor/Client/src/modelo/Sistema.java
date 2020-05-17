@@ -56,8 +56,7 @@ public class Sistema extends Observable implements Observer {
      * Lee el archivo de configuracion.txt
      * y asigna la IP leida a la variable local que la contiene.
      * 
-     * @throws FileNotFoundException
-     * Si ocurre un error con la lectura del archivo de configuracion.
+     * @throws FileNotFoundException Si ocurre un error con la lectura del archivo de configuracion.
      */
     public void leerConfig() throws NoLecturaConfiguracionException {
         try {
@@ -112,7 +111,7 @@ public class Sistema extends Observable implements Observer {
             // sin funcionalidad
         }
     }
-    
+    /*
     public void notificarCambioDeEstado(boolean valor) throws NoConexionException {
         try {
             internetManager.notificarCambioDeEstado(valor, usuario.getNombre(), usuario.getNumeroDeIP(),
@@ -121,7 +120,21 @@ public class Sistema extends Observable implements Observer {
             throw new NoConexionException(e);
         }
     }
-    
+    */
+    public void notificarCambioDeEstado(boolean valor) { 
+        new Thread() {
+            public void run() {
+                try {
+                    System.out.println("Se va a notificar el cambio con los siguientes valores:");
+                    System.out.println(valor + " " + usuario.getNombre() + " IP: " + usuario.getNumeroDeIP());
+                    internetManager.notificarCambioDeEstado(valor, usuario.getNombre(), usuario.getNumeroDeIP(),
+                                                            NRO_IP_DIRECTORIO, NRO_PUERTO_DIRECTORIO);
+                } catch (Exception e) {
+                    System.out.println("Error al conectar con el Directorio.");
+                }
+            }
+        }.start();
+    }
     // los tres metodos que siguen son para manejo de recepcion de mensajes en el IMR
 
     public void conexionExitosa() {

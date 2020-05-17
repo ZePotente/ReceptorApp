@@ -37,13 +37,19 @@ public class ControladorVentana implements ActionListener, Observer {
     public ArrayList<Mensaje> getMensajesRecibidos() {
         return mensajesRecibidos;
     }
-    
+    /*
     public void notificarCambioDeEstado(boolean valor) {
         try {
             sistema.notificarCambioDeEstado(valor);
         } catch (NoConexionException e) {
-            System.out.println("Error al notificar cambio de estado");
+            //System.out.println("Error al notificar cambio de estado");
+            System.out.println("Error al conectar con el Directorio.");
+            System.out.println("Por favor reintente mas tarde.");
         }
+    }
+¨   */
+    public void notificarCambioDeEstado(boolean valor) {
+        sistema.notificarCambioDeEstado(valor);
     }
 
     @Override
