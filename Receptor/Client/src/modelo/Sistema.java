@@ -54,11 +54,10 @@ public class Sistema extends Observable implements Observer {
     }
     
     /**
-     * @param nombreArch
      * Lee el archivo de configuracion.txt
      * y asigna la IP leida a la variable local que la contiene.
      * 
-     * @throws FileNotFoundException Si ocurre un error con la lectura del archivo de configuracion.
+     * @throws NoLecturaConfiguracionException Si ocurre un error con la lectura del archivo de configuracion.
      */
     public void leerConfig() throws NoLecturaConfiguracionException {
         try {
