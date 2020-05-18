@@ -24,6 +24,8 @@ import java.util.Scanner;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import modelo.alarma.GestorAlarma;
+
 import modelo.mensaje.Mensaje;
 
 public class Sistema extends Observable implements Observer {

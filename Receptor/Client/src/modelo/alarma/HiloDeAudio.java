@@ -1,4 +1,4 @@
-package modelo;
+package modelo.alarma;
 
 import javax.sound.sampled.Clip;
 
