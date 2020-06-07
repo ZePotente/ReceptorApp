@@ -1,4 +1,4 @@
-package modelo.alarma;
+package modelo_r.alarma;
 
 import java.io.File;
 import java.io.IOException;

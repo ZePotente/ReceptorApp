@@ -1,4 +1,4 @@
-package modelo;
+package modelo_r;
 
 public class Usuario implements ArmableDesarmable {
     protected String nombre;

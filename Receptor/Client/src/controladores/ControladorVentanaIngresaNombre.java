@@ -13,11 +13,11 @@ import java.net.UnknownHostException;
 
 import java.util.ArrayList;
 
-import modelo.Sistema;
+import modelo_r.Sistema;
 
-import modelo.Usuario;
+import modelo_r.Usuario;
 
-import modelo.mensaje.Mensaje;
+import modelo_r.mensaje.Mensaje;
 
 import ventanas.Ventana;
 

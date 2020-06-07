@@ -1,4 +1,4 @@
-package modelo;
+package modelo_r;
 
 
 import excepciones.AlarmaNoActivadaException;
@@ -24,9 +24,9 @@ import java.util.Scanner;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import modelo.alarma.GestorAlarma;
+import modelo_r.alarma.GestorAlarma;
 
-import modelo.mensaje.Mensaje;
+import modelo_r.mensaje.Mensaje;
 
 public class Sistema extends Observable implements Observer {
     // clase

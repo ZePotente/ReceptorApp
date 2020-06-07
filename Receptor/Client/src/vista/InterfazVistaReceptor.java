@@ -1,6 +1,6 @@
 package vista;
 
-import modelo.mensaje.Mensaje;
+import modelo_r.mensaje.Mensaje;
 
 
 public interface InterfazVistaReceptor extends InterfazVista {
