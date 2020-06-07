@@ -1,7 +1,7 @@
-package modelo.mensaje;
+package modelo_r.mensaje;
 
-import modelo.ArmableDesarmable;
-import modelo.Usuario;
+import modelo_r.ArmableDesarmable;
+import modelo_r.Usuario;
 import excepciones.MalTipoDeMensajeException;
 import excepciones.MensajeMalFormadoException;
 

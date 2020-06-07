@@ -2,8 +2,8 @@ package controladores;
 
 import excepciones.NoConexionException;
 
-import modelo.mensaje.Mensaje;
-import modelo.Sistema;
+import modelo_r.mensaje.Mensaje;
+import modelo_r.Sistema;
 
 import vista.InterfazVistaReceptor;
 

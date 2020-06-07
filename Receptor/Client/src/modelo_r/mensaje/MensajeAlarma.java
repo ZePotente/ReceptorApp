@@ -1,10 +1,10 @@
-package modelo.mensaje;
+package modelo_r.mensaje;
 
 import excepciones.MensajeMalFormadoException;
 
-import modelo.ArmableDesarmable;
-import modelo.Sistema;
-import modelo.Usuario;
+import modelo_r.ArmableDesarmable;
+import modelo_r.Sistema;
+import modelo_r.Usuario;
 
 public class MensajeAlarma extends Mensaje {
     public MensajeAlarma(String asunto, String descripcion, Usuario destinatario, Usuario emisor) {

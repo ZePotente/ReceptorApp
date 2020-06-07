@@ -2,7 +2,7 @@ package ventanas;
 
 import controladores.ControladorVentana;
 
-import modelo.mensaje.Mensaje;
+import modelo_r.mensaje.Mensaje;
 
 import vista.InterfazVistaReceptor;
 
