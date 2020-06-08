@@ -14,12 +14,12 @@ public class DesencriptacionCesarStrategy implements IDesencriptacionStrategy{
             car = cifrado.charAt(i);
             if (isMinuscula(car))
                 car = this.desplazar('a', car);
-            else 
-                if (isMayuscula(car))
+            else
+                if (isMayuscula(car)) 
                     car = this.desplazar('A', car);
             mensaje += car;
         }
-        return null;
+        return mensaje;
     }
     
     private boolean isMinuscula(char car) {
@@ -31,6 +31,10 @@ public class DesencriptacionCesarStrategy implements IDesencriptacionStrategy{
     }
     
     private char desplazar(char base, char car) {
-        return (char) (base + (car - this.DESPLAZAMIENTO - base) % 26);
+        char resultado = (char) (car - this.DESPLAZAMIENTO);
+        if (resultado < base)
+            resultado += 26;
+        return resultado;
     }
+    
 }
