@@ -8,7 +8,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-public class GestorAlarma {
+public class GestorAlarma implements IAlarma {
     private String nombreArchivoAudio = "Alarma.wav";
     private GestorArchivoAudio gestor;
     private HiloDeAudio hiloAlarma;
