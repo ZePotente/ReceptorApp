@@ -9,15 +9,8 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class GestorArchivoAudio {
-    private File archivoAudio; //Es un path, no un archivo
+    private File archivoAudio;
     private Clip audio;
-    
-    public GestorArchivoAudio() {
-        /*
-        archivoAudio = null;
-        audio = null;
-        */
-    }
     
     public void abrirArchivo(String nombreArchivoAudio) throws LineUnavailableException, IOException,
                                                                UnsupportedAudioFileException, InterruptedException {
@@ -26,9 +19,8 @@ public class GestorArchivoAudio {
         audio.open(AudioSystem.getAudioInputStream(archivoAudio));
     }
     
-    //si hubiera mas archivos habria que tener una coleccion y buscarlo
     public void cerrarArchivo() {
-        audio.close(); //no parece necesario
+        audio.close();
     }
 
     public Clip getAudio() {

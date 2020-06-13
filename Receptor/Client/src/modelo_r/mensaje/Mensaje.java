@@ -5,8 +5,7 @@ import modelo_r.Usuario;
 import excepciones.MalTipoDeMensajeException;
 import excepciones.MensajeMalFormadoException;
 
-// deberia ser abstracta?
-public class Mensaje implements ArmableDesarmable {
+public abstract class Mensaje implements ArmableDesarmable {
     // clase
     protected static final String MENSAJE_SIMPLE = "1", MENSAJE_ALARMA = "2", MENSAJE_RECEPCION = "3";
     // instancia

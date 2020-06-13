@@ -16,7 +16,6 @@ public class InternetManager {
         super();
     }
     
-    // para saber la IP de la pc: InetAddress.getLocalHost().getHostAddress()
     public void escuchar(int nroPuerto) {
         new Thread() {
             public void run() {

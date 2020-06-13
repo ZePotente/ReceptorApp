@@ -15,14 +15,12 @@ public class HiloDeAudio extends Thread {
         botonApretado = false;
         this.audio.start();
         this.audio.loop(Clip.LOOP_CONTINUOUSLY);
-        // El audio sigue de manera indefinida hasta que se corte
         while(botonApretado == false) {
             try {
                 Thread.sleep(audio.getMicrosecondLength() / 1000);
             } catch (InterruptedException e) {
                 this.botonApretado = true;
             }
-                //en un futuro podria haber problemas por falta de sincronizacion
         }
     }
 
