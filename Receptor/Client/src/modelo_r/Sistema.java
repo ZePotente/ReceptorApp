@@ -26,6 +26,9 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import modelo_r.alarma.GestorAlarma;
 
+import modelo_r.desencriptacion.DesencriptacionCesarStrategy;
+import modelo_r.desencriptacion.IDesencriptacionStrategy;
+
 import modelo_r.mensaje.Mensaje;
 
 public class Sistema extends Observable implements Observer, ILoginAuthenticator {
@@ -38,12 +41,13 @@ public class Sistema extends Observable implements Observer, ILoginAuthenticator
     private InternetManager internetManager;
     private GestorAlarma alarma;
     private Usuario usuario;
+    private IDesencriptacionStrategy desencriptador;
 
     private Sistema() {
         alarma = new GestorAlarma();
         internetManager = new InternetManager();
         internetManager.escuchar(NRO_PUERTO);
-        
+        desencriptador = new DesencriptacionCesarStrategy();
     }
     
     public static Sistema getInstancia() {
@@ -97,6 +101,8 @@ public class Sistema extends Observable implements Observer, ILoginAuthenticator
         Mensaje mensaje;
         try {
             mensaje = Mensaje.armar(msg);
+            mensaje.setAsunto(desencriptador.desencriptar(mensaje.getAsunto()));
+            mensaje.setDescripcion(desencriptador.desencriptar(mensaje.getDescripcion()));
             setChanged();
             notifyObservers(mensaje);
             mensaje.ejecutar();

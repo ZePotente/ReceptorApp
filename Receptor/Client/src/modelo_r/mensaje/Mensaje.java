@@ -60,6 +60,13 @@ public abstract class Mensaje implements ArmableDesarmable {
         return mensaje;
     }
 
+    public void setAsunto(String asunto) {
+        this.asunto = asunto;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
     public String getAsunto() {
         return asunto;
