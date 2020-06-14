@@ -2,7 +2,7 @@ package controladores;
 
 import excepciones.NoConexionException;
 
-import excepciones.NoLecturaConfiguracionException;
+import configuracion.NoLecturaConfiguracionException;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

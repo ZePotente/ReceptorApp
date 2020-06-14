@@ -1,6 +1,8 @@
 package modelo_r;
 
 
+import configuracion.Configuracion;
+
 import excepciones.AlarmaNoActivadaException;
 
 import excepciones.MalTipoDeMensajeException;
@@ -9,7 +11,7 @@ import excepciones.MensajeMalFormadoException;
 
 import excepciones.NoConexionException;
 
-import excepciones.NoLecturaConfiguracionException;
+import configuracion.NoLecturaConfiguracionException;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -34,16 +36,17 @@ import modelo_r.mensaje.Mensaje;
 public class Sistema extends Observable implements Observer, ILoginAuthenticator {
     // clase
     private static Sistema instancia;
-    private static final int NRO_PUERTO = 123, NRO_PUERTO_DIRECTORIO = 100;
+    private static final int NRO_PUERTO = 123;
     private static final String ARCHIVO_CONFIG = "configuracion.txt";
     // instancia
-    private String NRO_IP_DIRECTORIO = "";
     private InternetManager internetManager;
     private GestorAlarma alarma;
+    private Configuracion config;
     private Usuario usuario;
     private IDesencriptacionStrategy desencriptador;
 
     private Sistema() {
+        config = new Configuracion(ARCHIVO_CONFIG);
         alarma = new GestorAlarma();
         internetManager = new InternetManager();
         internetManager.escuchar(NRO_PUERTO);
@@ -55,25 +58,6 @@ public class Sistema extends Observable implements Observer, ILoginAuthenticator
             instancia = new Sistema();
         }
         return instancia;
-    }
-    
-    /**
-     * Lee el archivo de configuracion.txt
-     * y asigna la IP leida a la variable local que la contiene.
-     * 
-     * @throws NoLecturaConfiguracionException Si ocurre un error con la lectura del archivo de configuracion.
-     */
-    public void leerConfig() throws NoLecturaConfiguracionException {
-        try {
-            FileInputStream arch;
-            arch = new FileInputStream(ARCHIVO_CONFIG);
-            Scanner sc = new Scanner(arch);    
-            
-            this.NRO_IP_DIRECTORIO = sc.nextLine();
-            sc.close();
-        } catch (FileNotFoundException e) {
-            throw new NoLecturaConfiguracionException(e);
-        }
     }
     
     public void ingresar(Usuario usuario) {
@@ -123,9 +107,14 @@ public class Sistema extends Observable implements Observer, ILoginAuthenticator
                     System.out.println("Se va a notificar el cambio con los siguientes valores:");
                     System.out.println(valor + " " + usuario.getNombre() + " IP: " + usuario.getNumeroDeIP());
                     internetManager.notificarCambioDeEstado(valor, usuario.getNombre(), usuario.getNumeroDeIP(),
-                                                            NRO_IP_DIRECTORIO, NRO_PUERTO_DIRECTORIO);
+                                                            config.getNroIPDir1(), config.getPuertoDir1());
                 } catch (Exception e) {
-                    System.out.println("Error al conectar con el Directorio.");
+                    try {
+                        internetManager.notificarCambioDeEstado(valor, usuario.getNombre(), usuario.getNumeroDeIP(),
+                                                                config.getNroIPDir2(), config.getPuertoDir2());
+                    } catch (Exception f) {
+                        System.out.println("Error al conectar con el Directorio.");
+                    }
                 }
             }
         }.start();
