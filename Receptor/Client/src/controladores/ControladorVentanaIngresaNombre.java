@@ -2,7 +2,7 @@ package controladores;
 
 import excepciones.NoConexionException;
 
-import excepciones.NoLecturaConfiguracionException;
+import configuracion.NoLecturaConfiguracionException;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,14 +45,13 @@ public class ControladorVentanaIngresaNombre implements ActionListener {
                 if (nombre != null && !nombre.isEmpty()) {
                     try {
                         sistema.leerConfig();
-                    
                     String nroIP = InetAddress.getLocalHost().getHostAddress();
                     sistema.ingresar(new Usuario(vista.getNombre(), nroIP));
-                    sistema.notificarCambioDeEstado(true);
+                    sistema.notificarCambioDeEstado();
                     ventana.abrir();
                     vista.cerrar();
                     } catch (NoLecturaConfiguracionException e) {
-                        vista.mostrarMensajeError("Error al leer la ip desde el archivo de configuracion");
+                        vista.mostrarMensajeError("Error al leer la ip desde el archivo de configuracion.");
                     }
                 }
             } catch (UnknownHostException e) {

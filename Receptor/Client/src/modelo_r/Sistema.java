@@ -1,6 +1,10 @@
 package modelo_r;
 
 
+import configuracion.Configuracion;
+
+import configuracion.LectorConfiguracion;
+
 import excepciones.AlarmaNoActivadaException;
 
 import excepciones.MalTipoDeMensajeException;
@@ -9,7 +13,7 @@ import excepciones.MensajeMalFormadoException;
 
 import excepciones.NoConexionException;
 
-import excepciones.NoLecturaConfiguracionException;
+import configuracion.NoLecturaConfiguracionException;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -34,12 +38,12 @@ import modelo_r.mensaje.Mensaje;
 public class Sistema extends Observable implements Observer, ILoginAuthenticator {
     // clase
     private static Sistema instancia;
-    private static final int NRO_PUERTO = 123, NRO_PUERTO_DIRECTORIO = 100;
+    private static final int NRO_PUERTO = 123;
     private static final String ARCHIVO_CONFIG = "configuracion.txt";
     // instancia
-    private String NRO_IP_DIRECTORIO = "";
     private InternetManager internetManager;
     private GestorAlarma alarma;
+    private Configuracion config;
     private Usuario usuario;
     private IDesencriptacionStrategy desencriptador;
 
@@ -57,23 +61,9 @@ public class Sistema extends Observable implements Observer, ILoginAuthenticator
         return instancia;
     }
     
-    /**
-     * Lee el archivo de configuracion.txt
-     * y asigna la IP leida a la variable local que la contiene.
-     * 
-     * @throws NoLecturaConfiguracionException Si ocurre un error con la lectura del archivo de configuracion.
-     */
+    @Override
     public void leerConfig() throws NoLecturaConfiguracionException {
-        try {
-            FileInputStream arch;
-            arch = new FileInputStream(ARCHIVO_CONFIG);
-            Scanner sc = new Scanner(arch);    
-            
-            this.NRO_IP_DIRECTORIO = sc.nextLine();
-            sc.close();
-        } catch (FileNotFoundException e) {
-            throw new NoLecturaConfiguracionException(e);
-        }
+        config = LectorConfiguracion.leerConfig(ARCHIVO_CONFIG);
     }
     
     public void ingresar(Usuario usuario) {
@@ -107,25 +97,26 @@ public class Sistema extends Observable implements Observer, ILoginAuthenticator
             notifyObservers(mensaje);
             mensaje.ejecutar();
         } catch (MalTipoDeMensajeException e) {
-            // Mal tipo de mensaje
-            // System.out.println("EXCEPCION MALTIPO.");
-            // sin funcionalidad
+            System.out.println("Se detecto un mal tipo de mensaje.");
         } catch (MensajeMalFormadoException e) {
-            // Cantidad de atributos del archivo erronea
-            // System.out.println("EXCEPCION LA CANTIDAD DE ATRIBUTOS NO COINCIDE.");
-            // sin funcionalidad
+            System.out.println("Se recibio un mensaje, pero estaba mal formado.");
         }
     }
-    public void notificarCambioDeEstado(boolean valor) { 
+    public void notificarCambioDeEstado() { 
         new Thread() {
             public void run() {
                 try {
                     System.out.println("Se va a notificar el cambio con los siguientes valores:");
-                    System.out.println(valor + " " + usuario.getNombre() + " IP: " + usuario.getNumeroDeIP());
-                    internetManager.notificarCambioDeEstado(valor, usuario.getNombre(), usuario.getNumeroDeIP(),
-                                                            NRO_IP_DIRECTORIO, NRO_PUERTO_DIRECTORIO);
+                    System.out.println(usuario.getNombre() + " IP: " + usuario.getNumeroDeIP());
+                    internetManager.conectarConDirectorio(usuario.getNombre(), usuario.getNumeroDeIP(),
+                                                          config.getNroIPDir1(), config.getPuertoDir1());
                 } catch (Exception e) {
-                    System.out.println("Error al conectar con el Directorio.");
+                    try {
+                        internetManager.conectarConDirectorio(usuario.getNombre(), usuario.getNumeroDeIP(),
+                                                              config.getNroIPDir2(), config.getPuertoDir2());
+                    } catch (Exception f) {
+                        System.out.println("Error al conectar con el Directorio.");
+                    }
                 }
             }
         }.start();
