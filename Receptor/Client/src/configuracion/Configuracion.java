@@ -6,10 +6,6 @@ public class Configuracion {
     private String nroIPDir2 = "";
     private int puertoDir2;
     
-    public Configuracion(String nroIPDirectorio) {
-        this.nroIPDir1 = nroIPDirectorio;
-    }
-    
     public Configuracion(String nroIPDir1, String puertoDir1, String nroIPDir2, String puertoDir2) throws NumberFormatException {
         this.nroIPDir1 = nroIPDir1;
         this.puertoDir1 = Integer.parseInt(puertoDir1);
