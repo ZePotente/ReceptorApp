@@ -16,6 +16,18 @@ public class Configuracion {
         this.nroIPDir2 = nroIPDir2;
         this.puertoDir2 = Integer.parseInt(puertoDir2);
     }
+    
+    public void prueba() {
+        System.out.println(
+        "IP Dir1: " + "\n" +
+        this.getNroIPDir1() + "\n" +
+        "Puerto Dir1: " + "\n" +
+        this.getPuertoDir1() + "\n" +
+        "IP Dir2: " + "\n" +
+        this.getNroIPDir2() + "\n" +
+        "Puerto Dir2: " + "\n" +
+        this.getPuertoDir2());
+    }
 
     public String getNroIPDir1() {
         return nroIPDir1;

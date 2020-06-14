@@ -47,6 +47,7 @@ public class Sistema extends Observable implements Observer, ILoginAuthenticator
 
     private Sistema() {
         config = new Configuracion(ARCHIVO_CONFIG);
+        config.prueba();
         alarma = new GestorAlarma();
         internetManager = new InternetManager();
         internetManager.escuchar(NRO_PUERTO);
