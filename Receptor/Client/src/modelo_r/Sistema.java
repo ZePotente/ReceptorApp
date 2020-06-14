@@ -28,7 +28,7 @@ import modelo_r.alarma.GestorAlarma;
 
 import modelo_r.mensaje.Mensaje;
 
-public class Sistema extends Observable implements Observer {
+public class Sistema extends Observable implements Observer, ILoginAuthenticator {
     // clase
     private static Sistema instancia;
     private static final int NRO_PUERTO = 123, NRO_PUERTO_DIRECTORIO = 100;
@@ -72,7 +72,7 @@ public class Sistema extends Observable implements Observer {
         }
     }
     
-    public void setUsuario(Usuario usuario) {
+    public void ingresar(Usuario usuario) {
         this.usuario = usuario;
     }
 
@@ -97,11 +97,9 @@ public class Sistema extends Observable implements Observer {
         Mensaje mensaje;
         try {
             mensaje = Mensaje.armar(msg);
-            // update()?
             setChanged();
             notifyObservers(mensaje);
-            //
-            mensaje.ejecutar(); // hace cosas diferentes dependiendo del tipo de mensaje
+            mensaje.ejecutar();
         } catch (MalTipoDeMensajeException e) {
             // Mal tipo de mensaje
             // System.out.println("EXCEPCION MALTIPO.");
@@ -112,16 +110,6 @@ public class Sistema extends Observable implements Observer {
             // sin funcionalidad
         }
     }
-    /*
-    public void notificarCambioDeEstado(boolean valor) throws NoConexionException {
-        try {
-            internetManager.notificarCambioDeEstado(valor, usuario.getNombre(), usuario.getNumeroDeIP(),
-                                                    NRO_IP_DIRECTORIO, NRO_PUERTO_DIRECTORIO);
-        } catch (Exception e) {
-            throw new NoConexionException(e);
-        }
-    }
-    */
     public void notificarCambioDeEstado(boolean valor) { 
         new Thread() {
             public void run() {

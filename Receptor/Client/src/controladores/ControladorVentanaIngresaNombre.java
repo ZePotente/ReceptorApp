@@ -13,6 +13,7 @@ import java.net.UnknownHostException;
 
 import java.util.ArrayList;
 
+import modelo_r.ILoginAuthenticator;
 import modelo_r.Sistema;
 
 import modelo_r.Usuario;
@@ -26,7 +27,7 @@ import vista.InterfazVistaReceptor;
 
 public class ControladorVentanaIngresaNombre implements ActionListener {
     private InterfazVistaIngresaNombre vista;
-    private Sistema sistema;
+    private ILoginAuthenticator sistema;
 
     public ControladorVentanaIngresaNombre(InterfazVistaIngresaNombre vista) {
         this.vista = vista;
@@ -46,7 +47,7 @@ public class ControladorVentanaIngresaNombre implements ActionListener {
                         sistema.leerConfig();
                     
                     String nroIP = InetAddress.getLocalHost().getHostAddress();
-                    sistema.setUsuario(new Usuario(vista.getNombre(), nroIP));
+                    sistema.ingresar(new Usuario(vista.getNombre(), nroIP));
                     sistema.notificarCambioDeEstado(true);
                     ventana.abrir();
                     vista.cerrar();

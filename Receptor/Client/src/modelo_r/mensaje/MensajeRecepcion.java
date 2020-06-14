@@ -9,13 +9,6 @@ public class MensajeRecepcion extends Mensaje {
     public MensajeRecepcion(String asunto, String descripcion, Usuario destinatario, Usuario emisor) {
         super(asunto,descripcion,destinatario,emisor);
     }
-
-    /*
-    @Override
-    public void armar(String msg) {
-        return super.armar(msg);
-    }
-    */
     
     @Override
     public String desarmar() {
