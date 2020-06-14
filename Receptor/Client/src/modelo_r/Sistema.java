@@ -3,6 +3,8 @@ package modelo_r;
 
 import configuracion.Configuracion;
 
+import configuracion.LectorConfiguracion;
+
 import excepciones.AlarmaNoActivadaException;
 
 import excepciones.MalTipoDeMensajeException;
@@ -46,12 +48,15 @@ public class Sistema extends Observable implements Observer, ILoginAuthenticator
     private IDesencriptacionStrategy desencriptador;
 
     private Sistema() {
-        config = new Configuracion(ARCHIVO_CONFIG);
-        config.prueba();
         alarma = new GestorAlarma();
         internetManager = new InternetManager();
         internetManager.escuchar(NRO_PUERTO);
         desencriptador = new DesencriptacionCesarStrategy();
+    }
+    
+    public void leerConfig() throws NoLecturaConfiguracionException {
+        config = LectorConfiguracion.leerConfig(ARCHIVO_CONFIG);
+        config.prueba();
     }
     
     public static Sistema getInstancia() {
