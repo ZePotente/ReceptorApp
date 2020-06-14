@@ -91,27 +91,23 @@ public class Sistema extends Observable implements Observer, ILoginAuthenticator
             notifyObservers(mensaje);
             mensaje.ejecutar();
         } catch (MalTipoDeMensajeException e) {
-            // Mal tipo de mensaje
-            // System.out.println("EXCEPCION MALTIPO.");
-            // sin funcionalidad
+            System.out.println("Se detecto un mal tipo de mensaje.");
         } catch (MensajeMalFormadoException e) {
-            // Cantidad de atributos del archivo erronea
-            // System.out.println("EXCEPCION LA CANTIDAD DE ATRIBUTOS NO COINCIDE.");
-            // sin funcionalidad
+            System.out.println("Se recibio un mensaje, pero estaba mal formado.");
         }
     }
-    public void notificarCambioDeEstado(boolean valor) { 
+    public void notificarCambioDeEstado() { 
         new Thread() {
             public void run() {
                 try {
                     System.out.println("Se va a notificar el cambio con los siguientes valores:");
-                    System.out.println(valor + " " + usuario.getNombre() + " IP: " + usuario.getNumeroDeIP());
-                    internetManager.notificarCambioDeEstado(valor, usuario.getNombre(), usuario.getNumeroDeIP(),
-                                                            config.getNroIPDir1(), config.getPuertoDir1());
+                    System.out.println(usuario.getNombre() + " IP: " + usuario.getNumeroDeIP());
+                    internetManager.conectarConDirectorio(usuario.getNombre(), usuario.getNumeroDeIP(),
+                                                          config.getNroIPDir1(), config.getPuertoDir1());
                 } catch (Exception e) {
                     try {
-                        internetManager.notificarCambioDeEstado(valor, usuario.getNombre(), usuario.getNumeroDeIP(),
-                                                                config.getNroIPDir2(), config.getPuertoDir2());
+                        internetManager.conectarConDirectorio(usuario.getNombre(), usuario.getNumeroDeIP(),
+                                                              config.getNroIPDir2(), config.getPuertoDir2());
                     } catch (Exception f) {
                         System.out.println("Error al conectar con el Directorio.");
                     }

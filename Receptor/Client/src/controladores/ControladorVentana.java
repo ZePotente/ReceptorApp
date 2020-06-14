@@ -48,8 +48,8 @@ public class ControladorVentana implements ActionListener, Observer {
         }
     }
 ¨   */
-    public void notificarCambioDeEstado(boolean valor) {
-        sistema.notificarCambioDeEstado(valor);
+    public void notificarCambioDeEstado() {
+        sistema.notificarCambioDeEstado();
     }
 
     @Override

@@ -55,8 +55,8 @@ public class InternetManager {
         Sistema.getInstancia().mensajeRecibido(msg);
     }
     
-    public void notificarCambioDeEstado(boolean valor, String nombre, String nroIP,
-                                        String nroIPDirectorio, int nroPuertoDirectorio) throws Exception {
+    public void conectarConDirectorio(String nombre, String nroIP, String nroIPDirectorio,
+                                      int nroPuertoDirectorio) throws Exception {
         
         Socket socket = new Socket(nroIPDirectorio.trim(), nroPuertoDirectorio);
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);

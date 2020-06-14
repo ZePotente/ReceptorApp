@@ -48,7 +48,7 @@ public class ControladorVentanaIngresaNombre implements ActionListener {
                     
                     String nroIP = InetAddress.getLocalHost().getHostAddress();
                     sistema.ingresar(new Usuario(vista.getNombre(), nroIP));
-                    sistema.notificarCambioDeEstado(true);
+                    sistema.notificarCambioDeEstado();
                     ventana.abrir();
                     vista.cerrar();
                     } catch (NoLecturaConfiguracionException e) {
