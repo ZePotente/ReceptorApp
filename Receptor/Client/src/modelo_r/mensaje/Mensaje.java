@@ -12,7 +12,7 @@ public abstract class Mensaje implements ArmableDesarmable {
     protected String asunto;
     protected String descripcion;
     protected Usuario emisor;
-    protected Usuario destinatario; // lo dejo aparte porque capaz sea otra clase mas especializada
+    protected Usuario destinatario;
     
     public Mensaje(String asunto, String descripcion, Usuario destinatario, Usuario emisor) {
         this.asunto = asunto;
