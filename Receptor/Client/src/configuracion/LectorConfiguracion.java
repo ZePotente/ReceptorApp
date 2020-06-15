@@ -3,6 +3,7 @@ package configuracion;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class LectorConfiguracion {
@@ -32,6 +33,8 @@ public class LectorConfiguracion {
             return config;
         } catch (FileNotFoundException e) {
             throw new NoLecturaConfiguracionException(e);
-        }  
+        } catch (NoSuchElementException e) {
+            throw new NoLecturaConfiguracionException(e);
+        }
     }
 }
