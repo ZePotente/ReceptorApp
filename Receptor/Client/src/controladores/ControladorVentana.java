@@ -49,7 +49,7 @@ public class ControladorVentana implements ActionListener, Observer {
     }
 ¨   */
     public void notificarCambioDeEstado() {
-        sistema.notificarCambioDeEstado();
+        sistema.establecerConexion();
     }
 
     @Override

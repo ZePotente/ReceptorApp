@@ -102,7 +102,7 @@ public class Sistema extends Observable implements Observer, ILoginAuthenticator
             System.out.println("Se recibio un mensaje, pero estaba mal formado.");
         }
     }
-    public void notificarCambioDeEstado() { 
+    public void establecerConexion() { 
         new Thread() {
             public void run() {
                 try {
