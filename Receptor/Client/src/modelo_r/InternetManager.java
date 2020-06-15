@@ -62,10 +62,8 @@ public class InternetManager {
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         String notificacion = "AvisoConexion\n"+nombre+"\n"+nroIP;
-        System.out.println("Se esta por enviar la notificacion:");
-        System.out.println(notificacion);
         out.println(notificacion);
-        System.out.println("Se envio la notificacion.");
+        System.out.println("Conexion exitosa.");
         controlarConexion(in);
         // out.close(); //se cierra con el socket.close();
         socket.close();
