@@ -105,17 +105,23 @@ public class Sistema extends Observable implements Observer, ILoginAuthenticator
     public void establecerConexion() { 
         new Thread() {
             public void run() {
-                try {
-                    System.out.println("Se va a notificar el cambio con los siguientes valores:");
-                    System.out.println(usuario.getNombre() + " IP: " + usuario.getNumeroDeIP());
-                    internetManager.conectarConDirectorio(usuario.getNombre(), usuario.getNumeroDeIP(),
-                                                          config.getNroIPDir1(), config.getPuertoDir1());
-                } catch (Exception e) {
+                while (true) {
                     try {
                         internetManager.conectarConDirectorio(usuario.getNombre(), usuario.getNumeroDeIP(),
-                                                              config.getNroIPDir2(), config.getPuertoDir2());
-                    } catch (Exception f) {
-                        System.out.println("Error al conectar con el Directorio.");
+                                                              config.getNroIPDir1(), config.getPuertoDir1());
+                    } catch (Exception e) {
+                        try {
+                            internetManager.conectarConDirectorio(usuario.getNombre(), usuario.getNumeroDeIP(),
+                                                                  config.getNroIPDir2(), config.getPuertoDir2());
+                        } catch (Exception f) {
+                            System.out.println("Error al conectar con el Directorio.");
+                        }
+                    }
+                    try { //solo se llega aca si la conexion a ambos fallo.
+                        System.out.println("Reintentando conexion...");
+                        Thread.sleep(5000); //esperar antes de intentar reconectar
+                    } catch (InterruptedException e) {
+                        System.out.println("Se interrumpio la espera a la reconexion al Directorio.");
                     }
                 }
             }
