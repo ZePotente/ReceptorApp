@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 import vista.InterfazVistaIngresaNombre;
 
 public class VentanaIngresaNombre extends JFrame implements InterfazVistaIngresaNombre {
-    private ControladorVentanaIngresaNombre controlador;
+    private ActionListener controlador;
     private JTextField textFieldNombre = new JTextField();
     private JButton botonContinuar = new JButton("Continuar");
     
@@ -35,7 +35,7 @@ public class VentanaIngresaNombre extends JFrame implements InterfazVistaIngresa
     }
 
     public void setControlador(ActionListener controlador) {
-        this.controlador = (ControladorVentanaIngresaNombre)controlador;
+        this.controlador = controlador;
         botonContinuar.addActionListener(controlador);
     }
 
@@ -45,7 +45,7 @@ public class VentanaIngresaNombre extends JFrame implements InterfazVistaIngresa
     }
     
     @Override
-    public void mostrarMensajeError(String mensaje) {
+    public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(null, mensaje);
     }
 

@@ -37,30 +37,32 @@ public class ControladorVentanaIngresaNombre implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if (actionEvent.getActionCommand().equals(InterfazVistaIngresaNombre.CONTINUAR)) {
-            Ventana ventana = new Ventana("Mensajes");
-            ControladorVentana controlador = new ControladorVentana(ventana);
-            ventana.setControlador(controlador);
-            try {
-                String nombre = vista.getNombre();
-                if (nombre != null && !nombre.isEmpty()) {
-                    try {
-                        sistema.leerConfig();
-                    String nroIP = InetAddress.getLocalHost().getHostAddress();
-                    sistema.ingresar(new Usuario(vista.getNombre(), nroIP));
-                    sistema.establecerConexion();
-                    ventana.abrir();
-                    vista.cerrar();
-                    } catch (NoLecturaConfiguracionException e) {
-                        vista.mostrarMensajeError("Error al leer la ip desde el archivo de configuracion.");
-                    }
+            String nombre = vista.getNombre();
+            if (nombre != null && !nombre.isEmpty()) {
+                Ventana ventana = new Ventana(nombre);
+                ControladorVentana controlador = new ControladorVentana(ventana);
+                ventana.setControlador(controlador);
+                try {
+                        try {
+                            sistema.leerConfig();
+                            String nroIP = InetAddress.getLocalHost().getHostAddress();
+                            sistema.ingresar(new Usuario(vista.getNombre(), nroIP));
+                            sistema.establecerConexion();
+                            ventana.abrir();
+                            vista.cerrar();
+                        } catch (NoLecturaConfiguracionException e) {
+                            vista.mostrarMensaje("Error al leer la ip desde el archivo de configuracion.");
+                        }
+                } catch (UnknownHostException e) {
+                    System.out.println("Error al obtener el numero de IP");
                 }
-            } catch (UnknownHostException e) {
-                System.out.println("Error al obtener el numero de IP");
+            } else {
+                vista.mostrarMensaje("Ingrese un nombre valido");
             }
         }
     }
     
     public void mostrarMensajeError() {
-        vista.mostrarMensajeError("Error al intentar conectar al directorio.");
+        vista.mostrarMensaje("Error al intentar conectar al directorio.");
     }
 }

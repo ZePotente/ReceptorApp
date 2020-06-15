@@ -65,7 +65,6 @@ public class InternetManager {
         out.println(notificacion);
         System.out.println("Conexion exitosa.");
         controlarConexion(in);
-        // out.close(); //se cierra con el socket.close();
         socket.close();
     }
     

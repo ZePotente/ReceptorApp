@@ -23,7 +23,6 @@ public class ControladorVentana implements ActionListener, Observer {
         this.vista = vista;
         this.sistema = Sistema.getInstancia();
         mensajesRecibidos = new ArrayList<Mensaje>();
-        // this.sistema.ingresarComoReceptor();
         sistema.addObserver(this);
     }
 
@@ -37,17 +36,7 @@ public class ControladorVentana implements ActionListener, Observer {
     public ArrayList<Mensaje> getMensajesRecibidos() {
         return mensajesRecibidos;
     }
-    /*
-    public void notificarCambioDeEstado(boolean valor) {
-        try {
-            sistema.notificarCambioDeEstado(valor);
-        } catch (NoConexionException e) {
-            //System.out.println("Error al notificar cambio de estado");
-            System.out.println("Error al conectar con el Directorio.");
-            System.out.println("Por favor reintente mas tarde.");
-        }
-    }
-¨   */
+    
     public void notificarCambioDeEstado() {
         sistema.establecerConexion();
     }
